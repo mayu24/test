@@ -1,4 +1,4 @@
-name: Use Env Text File Example
+name: Use Env File Example
 
 on:
   push:
@@ -9,10 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      Tes_Scripts_Folder: ${{ env.scripts }}/tes_env/
-      DEV_Scripts_Folder: ${{ env.scripts }}/Dev_env/
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,6 +18,8 @@ jobs:
           while IFS= read -r line; do
             echo "$line" >> $GITHUB_ENV
           done < .github/workflows/env.txt
+          echo "Tes_Scripts_Folder=$scripts/tes_env/" >> $GITHUB_ENV
+          echo "DEV_Scripts_Folder=$scripts/Dev_env/" >> $GITHUB_ENV
 
       - name: Example Step 1
         run: |
@@ -30,4 +28,5 @@ jobs:
 
       - name: Example Step 2
         run: |
-          echo "Using scripts path: $scripts"
+          echo "Using Test Scripts Folder: $Tes_Scripts_Folder"
+          echo "Using Dev Scripts Folder: $DEV_Scripts_Folder"
