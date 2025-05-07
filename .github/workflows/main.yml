@@ -21,12 +21,7 @@ jobs:
           echo "Tes_Scripts_Folder=$scripts/tes_env/" >> $GITHUB_ENV
           echo "DEV_Scripts_Folder=$scripts/Dev_env/" >> $GITHUB_ENV
 
-      - name: Example Step 1
+      - name: Print Environment Variables
         run: |
           echo "Test Scripts Folder: $Tes_Scripts_Folder"
           echo "Dev Scripts Folder: $DEV_Scripts_Folder"
-
-      - name: Example Step 2
-        run: |
-          echo "Using Test Scripts Folder: $Tes_Scripts_Folder"
-          echo "Using Dev Scripts Folder: $DEV_Scripts_Folder"
