@@ -1,0 +1,29 @@
+name: Use Env File Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Load Environment Variables from env.sh
+        id: load-env
+        run: |
+          source .github/workflows/./env.sh
+          echo "scripts=$scripts" >> $GITHUB_ENV
+
+      - name: Example Step 1
+        run: |
+          echo "Test Scripts Folder: $scripts/tes_env/"
+          echo "Dev Scripts Folder: $scripts/Dev_env/"
+
+      - name: Example Step 2
+        run: |
+          echo "Using scripts path: $scripts"
