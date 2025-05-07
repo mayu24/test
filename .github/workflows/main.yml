@@ -15,11 +15,17 @@ jobs:
 
       - name: Load Environment Variables from env.txt
         run: |
+          # Read variables from env.txt and add them to GITHUB_ENV
           while IFS= read -r line; do
             echo "$line" >> $GITHUB_ENV
           done < .github/workflows/env.txt
-          echo "Tes_Scripts_Folder=$scripts/tes_env/" >> $GITHUB_ENV
-          echo "DEV_Scripts_Folder=$scripts/Dev_env/" >> $GITHUB_ENV
+          
+          # Source the GITHUB_ENV file to get the `scripts` variable
+          source $GITHUB_ENV
+          
+          # Use the `scripts` variable to construct the folders
+          echo "Tes_Scripts_Folder=${scripts}/tes_env/" >> $GITHUB_ENV
+          echo "DEV_Scripts_Folder=${scripts}/Dev_env/" >> $GITHUB_ENV
 
       - name: Print Environment Variables
         run: |
