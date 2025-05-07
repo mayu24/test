@@ -21,7 +21,7 @@ jobs:
         run: |
           while IFS= read -r line; do
             echo "$line" >> $GITHUB_ENV
-          done < .github/workflows/./env.txt
+          done < .github/workflows/env.txt
 
       - name: Example Step 1
         run: |
