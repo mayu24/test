@@ -1,4 +1,4 @@
-name: Use Env File Example
+name: Use Env Text File Example
 
 on:
   push:
@@ -9,20 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      Tes_Scripts_Folder: ${{ env.scripts }}/tes_env/
+      DEV_Scripts_Folder: ${{ env.scripts }}/Dev_env/
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Load Environment Variables from env.sh
-        id: load-env
+      - name: Load Environment Variables from env.txt
         run: |
-          source .github/workflows/./env.sh
-          echo "scripts=$scripts" >> $GITHUB_ENV
+          while IFS= read -r line; do
+            echo "$line" >> $GITHUB_ENV
+          done < github/workflows/./env.txt
 
       - name: Example Step 1
         run: |
-          echo "Test Scripts Folder: $scripts/tes_env/"
-          echo "Dev Scripts Folder: $scripts/Dev_env/"
+          echo "Test Scripts Folder: $Tes_Scripts_Folder"
+          echo "Dev Scripts Folder: $DEV_Scripts_Folder"
 
       - name: Example Step 2
         run: |
